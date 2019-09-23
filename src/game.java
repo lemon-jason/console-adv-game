@@ -1,3 +1,5 @@
+import org.w3c.dom.ls.LSOutput;
+
 import java.sql.SQLOutput;
 import java.util.Scanner;
 
@@ -10,13 +12,10 @@ public class game {
     damageDone();
     attack();
 
-
-
     }
     public static void startGame (Scanner input) {
         System.out.println("Are you ready to start the adventure!");
         String response = input.nextLine();
-
         if (response.equalsIgnoreCase("yes")){
             hero(input);
         }
@@ -52,17 +51,20 @@ public class game {
     }
 
     public static void attack () {
-        int strike = damageDone();
-        int enemyHealth = 100;
-        int healthAfterStrike = enemyHealth - strike;
-        System.out.println("Your hit caused " + strike + "% damage!");
-        System.out.println("Frankenstein's health is now at " + healthAfterStrike + "%");
+            int heroHealth = 100;
+            int heroStrike = damageDone();
+            int enemyHealth = 100;
+            int enemyStrike = damageDone();
+            int enemyAfterStrike = enemyHealth - heroStrike;
+            int heroAfterStrike = heroHealth - enemyStrike;
+
+
+            System.out.println("Your hit caused " + heroStrike + "% damage!");
+            System.out.println("Frankenstein's health is now at " + enemyAfterStrike + "%!");
+            System.out.println("\nEnemy hit you for " + enemyStrike + "% damage!");
+            System.out.println("Your health is now " + heroAfterStrike + "%!");
+
+
     }
-
-
-
-
-
-
 
 }
