@@ -1,16 +1,41 @@
-import org.w3c.dom.ls.LSOutput;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class game {
     public static void main(String[] args){
         Scanner input = new Scanner(System.in);
+        int heroHealth = 100;
+        int heroStrike = damageDone();
+        int enemyHealth = 100;
+        int enemyStrike = damageDone();
+        enemyHealth -= heroStrike;
+        heroHealth -= enemyStrike;
+
 
     startGame(input);
     enemy1();
     damageDone();
-    attack();
+
+        System.out.println("Would you like to attack? Y/N");
+        String attackQ = input.nextLine();
+        do{
+        if(attackQ.equalsIgnoreCase("y")) {
+            System.out.println("Your hit caused " + heroStrike + "% damage!");
+            System.out.println("Frankenstein's health is now at " + enemyHealth + "%!");
+            System.out.println("\nEnemy hit you for " + enemyStrike + "% damage!");
+            System.out.println("Your health is now " + heroHealth + "%!\n");
+            heroStrike = damageDone();
+            enemyStrike = damageDone();
+            enemyHealth -= heroStrike;
+            heroHealth -= enemyStrike;
+            }
+        }while(heroHealth > 0 || enemyHealth > 0);
+
+        if (heroHealth > enemyHealth) {
+            System.out.println("Your won!");
+        } else {
+            System.out.println("You lost!");
+        }
 
     }
     public static void startGame (Scanner input) {
@@ -35,7 +60,6 @@ public class game {
         System.out.printf("Welcome %s", name);
 
         int health = 100;
-        int damageDone = damageDone();
         int sheild = 85;
 
         System.out.printf("\nYour Health: %s", health);
@@ -46,25 +70,8 @@ public class game {
         int max = 30;
         int min = 15;
         int range = max- min +1;
-        int attackPoints = (int) (Math.random() *range) + min;
-        return attackPoints;
+        return (int) (Math.random() *range) + min;
     }
 
-    public static void attack () {
-            int heroHealth = 100;
-            int heroStrike = damageDone();
-            int enemyHealth = 100;
-            int enemyStrike = damageDone();
-            int enemyAfterStrike = enemyHealth - heroStrike;
-            int heroAfterStrike = heroHealth - enemyStrike;
-
-
-            System.out.println("Your hit caused " + heroStrike + "% damage!");
-            System.out.println("Frankenstein's health is now at " + enemyAfterStrike + "%!");
-            System.out.println("\nEnemy hit you for " + enemyStrike + "% damage!");
-            System.out.println("Your health is now " + heroAfterStrike + "%!");
-
-
-    }
 
 }
